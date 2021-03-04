@@ -5,17 +5,13 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    steps:
+     steps:
       - uses: actions/checkout@v2
-      #- name: Docker Login
-       # uses: Azure/docker-login@v1
-       # with:
-        #  username: ${{ secrets.DOCKER_USER }}
-        #  password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: echo
-        run: |
-          echo "tag ${GITHUB_REF##*/}"
-          echo "run number  ${{ github.run_number }}"
+      - name: Docker Login
+        uses: Azure/docker-login@v1
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx

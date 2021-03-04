@@ -15,6 +15,7 @@ jobs:
       - name: echo
         run: |
           echo "tag ${GITHUB_REF##*/}"
+          echo "run number  ${{ github.run_number }}"
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
@@ -22,4 +23,4 @@ jobs:
       - name: Config Builder
         run: docker buildx create --name mbuilder && docker buildx use mbuilder
       - name: Docker Build Multiplatform
-        run: docker buildx build --platform linux/arm64,linux/amd64 -t bancolombia/distributed-performance-analyzer:${{ github.run_number }} --push .
+        run: docker buildx build --platform linux/arm64,linux/amd64 -t bancolombia/distributed-performance-analyzer:${GITHUB_REF##*/} --push .
